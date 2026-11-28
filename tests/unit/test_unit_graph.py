@@ -37,6 +37,13 @@ class TestGraphNodes(unittest.TestCase):
         found = self.g.find_nodes("Person")
         self.assertEqual({n["id"] for n in found}, {"a", "b"})
 
+    def test_find_nodes_empty_label(self):
+        self.g.add_node("", node_id="u1")
+        self.g.add_node("Person", node_id="p1")
+        self.g.add_node("", node_id="u2")
+        found = self.g.find_nodes(label="")
+        self.assertEqual([n["id"] for n in found], ["u1", "u2"])
+
     def test_find_nodes_all(self):
         self.g.add_node("Person", node_id="a")
         self.g.add_node("Place", node_id="b")

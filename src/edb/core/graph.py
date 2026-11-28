@@ -87,7 +87,7 @@ class GraphStore:
         # ORDER BY rowid is insertion order (add_node keeps the rowid on update),
         # so consecutive pages neither overlap nor skip nodes unless a node is
         # deleted between requests.
-        if label:
+        if label is not None:
             rows = self._e.fetchall(
                 "SELECT * FROM _graph_nodes WHERE label = ? ORDER BY rowid LIMIT ? OFFSET ?",
                 (label, limit, offset),
